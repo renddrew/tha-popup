@@ -3,10 +3,10 @@
 /*
 Plugin Name: Tha Popup
 Plugin URI: 
-Description: Poppin.. Simply  Usage: [tha_popup pgid="123"] <a data-popup-id="123">Show Popup</a> 
+Description: Simple popup using the content from another WP page. Usage: [tha_popup pgid="123" bg="#fff"] <span data-popup-id="123">Show Popup</span> 
 Version: 0.1
 Author: Andrew Rendall
-Author URI: 
+Author URI: andrewrendall.com
 License: 
 */
 
@@ -21,7 +21,9 @@ function tha_enqueues(){
 add_shortcode('tha_popup', 'tha_popup');
 function tha_popup($atts){
     extract(shortcode_atts(array(
-      'pgid' => ''
+      'pgid' => '',
+      'bg' => '#fff',
+      'color' => '#000'
     ), $atts));
 
     $page_data = get_page($pgid);
@@ -30,14 +32,10 @@ function tha_popup($atts){
 
        $content= apply_filters('the_content', $page_data->post_content);
 
-       $url = get_the_permalink($pgid);
-
-       $src = str_replace( home_url(), "", $url );
-
-       $out = '<div class="tha-popup-preload" data-tha-popup-src="' . $src . '" data-tha-popup-id="' . $pgid . '">
+       $out = '<div class="tha-popup-preload" data-tha-popup-target="' . $pgid . '">
        <div class="tha-pop-shadow"></div>
        <div class="tha-popup-container">
-        <div class="tha-popup-body">' . $content . '</div><div class="tha-popup-hide">x</div></div>
+        <div class="tha-popup-body" style="background-color:' . $bg . ';color:' . $color . '">' . $content . '</div><div class="tha-popup-hide">x</div></div>
        </div>';
        return $out;
     }
