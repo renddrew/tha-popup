@@ -26,7 +26,7 @@ function tha_popup($atts){
       'color' => '#000'
     ), $atts));
 
-    $page_data = get_page($pgid);
+    $page_data = get_post($pgid);
 
     if($page_data) {
 
