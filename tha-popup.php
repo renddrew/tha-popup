@@ -3,7 +3,7 @@
 /*
 Plugin Name: Tha Popup
 Plugin URI: 
-Description: Simple popup using the content from another WP page. Usage: [tha_popup pgid="123" bg="#fff"] <span data-popup-id="123">Show Popup</span> 
+Description: Simple popup using the content from another WP page. Usage: [tha_popup pgid="123" bg="#fff"] <span data-tha-popup-id="123">Show Popup</span> 
 Version: 0.1
 Author: Andrew Rendall
 Author URI: andrewrendall.com
