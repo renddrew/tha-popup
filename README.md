@@ -7,5 +7,5 @@ A simple WP plugin for popups that show the content from another WP page. Requir
 ```[tha_popup pgid="123" bg="#fff" color="#000"] ```
 
 2. Add a link within the page that will show the popup. Can be anything with a data-popup-id attribute. The id is the WP page id to pull the content from.
-```<a data-popup-id="123">Show Popup</a> ```
+```<a data-tha-popup-id="123">Show Popup</a> ```
 
