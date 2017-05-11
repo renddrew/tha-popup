@@ -4,7 +4,7 @@
 Plugin Name: Tha Popup
 Plugin URI: 
 Description: A simple popup that ajax loads content from another WP page - on window load or click. Shortcode: [tha_popup_link page_id="123" lazy_load="true|onclick" link_text="Click Me" bg="#fff" color="#000" classes=""]
-Version: 0.1
+Version: 1.0
 Author: Andrew Rendall
 Author URI: andrewrendall.com
 License: 
@@ -32,6 +32,8 @@ function tha_popup_link($atts){
       'bg' => '',
       'color' => ''
     ), $atts));
+
+    $data = '';
 
     if($lazy_load === 'true'){
       $data.= ' data-tha-popup-lazy="true"';
