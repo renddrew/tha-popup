@@ -3,7 +3,7 @@
 /*
 Plugin Name: Tha Popup
 Plugin URI: 
-Description: Simple popup using the content from another WP page. Usage: [tha_popup pgid="123" bg="#fff"] <span data-tha-popup-id="123">Show Popup</span> 
+Description: A simple popup that ajax loads content from another WP page - on window load or click. Shortcode: [tha_popup_link page_id="123" lazy_load="true|onclick" link_text="Click Me" bg="#fff" color="#000" classes=""]
 Version: 0.1
 Author: Andrew Rendall
 Author URI: andrewrendall.com
@@ -11,8 +11,8 @@ License:
 */
 
 
-add_action( 'wp_enqueue_scripts', 'tha_enqueues');
-function tha_enqueues(){
+add_action( 'wp_enqueue_scripts', 'tha_popup_enqueues');
+function tha_popup_enqueues(){
   wp_enqueue_style( 'tha-popup-css', plugin_dir_url( __FILE__ ) . 'tha-popup.css');
   wp_enqueue_script( 'tha-popup-js', plugin_dir_url( __FILE__ ) . 'tha-popup.js', array('jquery'));
   wp_localize_script( 'tha-popup-js', 'tha_popup', array(
@@ -21,10 +21,8 @@ function tha_enqueues(){
 }
 
 
-
-
-
 // shortcode function to add popup link 
+add_shortcode('tha_popup_link', 'tha_popup_link');
 function tha_popup_link($atts){
     extract(shortcode_atts(array(
       'page_id' => '',
@@ -54,9 +52,6 @@ function tha_popup_link($atts){
       return apply_filters('the_content', $out);
     }
 }
-add_shortcode('tha_popup_link', 'tha_popup_link');
-
-
 
 
 function tha_popup_content($pgid, $bg='#fff', $color='#000'){
@@ -68,18 +63,21 @@ function tha_popup_content($pgid, $bg='#fff', $color='#000'){
 }
 
 
-function tha_ajax(){
+add_action('wp_ajax_tha_popup_ajax','tha_popup_ajax');
+add_action('wp_ajax_nopriv_tha_popup_ajax','tha_popup_ajax');
+function tha_popup_ajax(){
   if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
     $id = $_POST['id'];
-    $data['id'] = $id;
-    $data['content'] =  tha_popup_content($id); 
-    echo json_encode($data);
+    if($id){
+      $data['id'] = $id;
+      $data['content'] =  tha_popup_content($id); 
+      echo json_encode($data);
+    }
   }
   die();
 }
 
-add_action('wp_ajax_tha_ajax','tha_ajax');
-add_action('wp_ajax_nopriv_tha_ajax','tha_ajax');
+
 
 
 

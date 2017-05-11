@@ -1,11 +1,20 @@
 # tha-popup
-A simple WP plugin for popups that show the content from another WP page. Requires jQuery.
+
+A simple WordPress plugin that loads the content from another WP page via ajax - on window load or click. Requires jQuery.
 
 ## Usage:
 
-1. Add the shortcode to the page that will have the popup, the pgid shortcode parameter is the WP page to pull the content from. 
-```[tha_popup pgid="123" bg="#fff" color="#000"] ```
+### Method 1: 
+Add a link using shortcode:
+```[tha_popup_link page_id="123" lazy_load="true|onclick" link_text="Click Me" bg="#fff" color="#000" classes=""] ```
 
-2. Add a link within the page that will show the popup. Can be anything with a data-popup-id attribute. The id is the WP page id to pull the content from.
-```<a data-tha-popup-id="123">Show Popup</a> ```
+### Method 2:
+Add a "tha-popup-trigger" class and data attributes to whatever html element you'd like to have load and trigger the popup.
+	Data attributes:
+	 - data-tha-popup-id="123"
+	 - data-tha-popup-lazy="true|onclick"
+	 - data-tha-popup-color="#fff"
+	 - data-tha-popup-bg="#000"
+
+
 
