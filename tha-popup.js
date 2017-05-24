@@ -2,13 +2,13 @@ jQuery(document).ready(function($){
 
 	$('body').append('<div class="tha-pop-shadow"></div>');
 
-	function tha_get_popup_content(id, show, bg, color){
+	function tha_get_popup_content(id, show, bg, color, title){
 
 		if(!id){
 			return false;
 		}
 
-		var show = show || 0, bg = bg || null, color = color || null;
+		var show = show || 0, bg = bg || null, color = color || null, title = title || null;
 
 		var anchored = $('body .tha-popup-anchor[data-tha-popup-id="'+id+'"]');
 
@@ -23,7 +23,12 @@ jQuery(document).ready(function($){
 			$('.tha-pop-shadow').addClass('loading');
 		}
 
-		var data = {'action':'tha_popup_ajax', 'id':id};
+		var data = {
+			'action':'tha_popup_ajax',
+		 	'id':id,
+		 	'show_title':title
+		};
+
 		$.ajax({
 			 url:tha_popup.thaAjaxUrl,
 			 type:'POST',
@@ -64,7 +69,8 @@ jQuery(document).ready(function($){
 			var id = $(v).data('tha-popup-id');
 			var bg = $(v).data('tha-popup-bg');
 			var color = $(v).data('tha-popup-color');
-			tha_get_popup_content(id, 0, bg, color);
+			var title = $(v).data('tha-popup-title');
+			tha_get_popup_content(id, 0, bg, color, title);
 		});
 	});
 
@@ -73,7 +79,8 @@ jQuery(document).ready(function($){
 		var id = $(this).data('tha-popup-id');
 		var bg = $(this).data('tha-popup-bg');
 		var color = $(this).data('tha-popup-color');
-		tha_get_popup_content(id, 1, bg, color);
+		var title = $(this).data('tha-popup-title');
+		tha_get_popup_content(id, 1, bg, color, title);
 	});
 
 	$('body').on('click', '.tha-popup-hide', function(){
